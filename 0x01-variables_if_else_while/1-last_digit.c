@@ -28,5 +28,5 @@ int main(void)
 	{
 		printf("%d and is 0\n", num);
 	}
-        return (0);
+	return (0);
 }
