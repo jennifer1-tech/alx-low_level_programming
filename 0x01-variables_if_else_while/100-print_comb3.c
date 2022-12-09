@@ -20,7 +20,7 @@ int main(void)
 			{
 				putchar(tens);
 				putchar(ones);
-				if (!(ones == '0' && tens == '8'))/*addes comma and space*/
+				if (!(ones == '0' && tens == '8'))/*addes commma and space*/
 				{
 					putchar(',');
 					putchar(' ');
