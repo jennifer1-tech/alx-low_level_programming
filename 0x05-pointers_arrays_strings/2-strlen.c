@@ -2,10 +2,10 @@
 
 /**
  * _strlen-finds the length of a string
- * @s:String pointer to the string whose length is to be found
+ * @s: String pointer to the string whose length is to be found
  * Return: returns the length of the string
  */
-int_strlen(char *s)
+int _strlen(char *s)
 {
 	int len = 0;
 
