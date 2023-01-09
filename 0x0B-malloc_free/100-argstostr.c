@@ -1,69 +1,48 @@
-/**
- * _strcat - Concat string, src appended to dest
- *
- * @dest: Destination string
- * @src: Source string
- * Return: Concat newString to dest
- */
-char *_strcat(char *dest, char *src)
-{
-        int a, b;
-
-        for (a = 0; dest[a] != '\0'; a++)
-                ;
-        for (b = 0; src[b] != '\0'; b++)
-        {
-                dest[a] = src[b];
-                a++;
-        }
-        return (dest);
-}
+#include "main.h"
+#include <stdlib.h>
 
 /**
- * _strlen - Return the number of the length of the string
+ * argstostr - concatenates all the arguments of a program.
+ * @ac: argument count.
+ * @av: argument vector.
  *
- * @s: This is the string to check
- *
- * Return: Return the length of the string
- */
-int _strlen(char *s)
-{
-	int a;
-
-	for (a = 0; s[a] != '\0'; a++)
-		;
-	return (a);
-}
-
-/**
- * argstostr - Concats argv to new string
- *
- * @ac: Argument count
- * @av: Arguments
- *
- * Return: Returns a pointer to a new string, or NULL if it fails
+ * Return: pointer of an array of char
  */
 
 char *argstostr(int ac, char **av)
 {
-	int index, sumString;
-	char *newString;
+	char *aout;
 
-	sumString = 1;
+	int c, i, j, ia;
 
-	if (ac == 0 || av == NULL)
-		return (0);
-	for (index = 0; index < ac && av[index]; index++)
-	{
-		sumString += _strlen(av[index]);
-	}
-	newString = malloc((sumString * sizeof(char)) + ac);
-	for (index = 0; index < ac && av[index]; index++)
-	{
-		newString = _strcat(newString, av[index]);
-		newString = _strcat(newString, "\n");
-	}
-	if (newString == NULL)
+	if (ac == 0)
 		return (NULL);
-	return (newString);
+	for (c = i = 0; i < ac; i++)
+	{
+		if (av[i] == NULL)
+			return (NULL);
+		for (j = 0; av[i][j] != '\0'; j++)
+			c++;
+		c++;
+	}
+		aout = malloc((c + 1) * sizeof(char));
+		if (aout == NULL)
+		{
+			free(aout);
+			return (NULL);
+		}
+		for (i = j = ia = 0; ia < c; j++, ia++)
+		{
+			if (av[i][j] == '\0')
+			{
+				aout[ia] = '\n';
+				i++;
+				ia++;
+				j = 0;
+			}
+			if (ia < c - 1)
+				aout[ia] = av[i][j];
+		}
+		aout[ia] = '\0';
+	return (aout);
 }
