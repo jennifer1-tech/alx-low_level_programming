@@ -1,45 +1,69 @@
-#include <stdlib.h>
-#include "main.h"
+/**
+ * _strcat - Concat string, src appended to dest
+ *
+ * @dest: Destination string
+ * @src: Source string
+ * Return: Concat newString to dest
+ */
+char *_strcat(char *dest, char *src)
+{
+        int a, b;
+
+        for (a = 0; dest[a] != '\0'; a++)
+                ;
+        for (b = 0; src[b] != '\0'; b++)
+        {
+                dest[a] = src[b];
+                a++;
+        }
+        return (dest);
+}
 
 /**
- * *argstostr - concatenates all the arguments of the program
- * @ac: number of arguments
- * @av: array of arguments
+ * _strlen - Return the number of the length of the string
  *
- * Return: Pointer to the new string (Success), NULL (Error)
+ * @s: This is the string to check
+ *
+ * Return: Return the length of the string
  */
+int _strlen(char *s)
+{
+	int a;
+
+	for (a = 0; s[a] != '\0'; a++)
+		;
+	return (a);
+}
+
+/**
+ * argstostr - Concats argv to new string
+ *
+ * @ac: Argument count
+ * @av: Arguments
+ *
+ * Return: Returns a pointer to a new string, or NULL if it fails
+ */
+
 char *argstostr(int ac, char **av)
 {
-	int i, j, k, len;
-	char *str;
+	int index, sumString;
+	char *newString;
+
+	sumString = 1;
 
 	if (ac == 0 || av == NULL)
-		return (NULL);
-
-	for (i = 0; i < ac; i++)
+		return (0);
+	for (index = 0; index < ac && av[index]; index++)
 	{
-		for (j = 0; av[i][j] != '\0'; j++)
-			len++;
-		len++;
+		sumString += _strlen(av[index]);
 	}
-
-	str = malloc(sizeof(char) * (len + 1));
-
-	if (str == NULL)
-		return (NULL);
-
-	k = 0;
-
-	for (i = 0; i < ac; i++)
+	newString = malloc((sumString * sizeof(char)) + ac);
+	for (index = 0; index < ac && av[index]; index++)
 	{
-		for (j = 0; av[i][j] != '\0'; j++)
-		{
-			str[k] = av[i][j];
-			k++;
-		}
-		str[k] = '\n';
-		k++;
+		newString = _strcat(newString, av[index]);
+		newString = _strcat(newString, "\n");
 	}
-
-	return (str);
+	if (newString == NULL)
+		return (NULL);
+	return (newString);
 }
