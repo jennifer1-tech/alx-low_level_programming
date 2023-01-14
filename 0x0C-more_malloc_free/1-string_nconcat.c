@@ -1,58 +1,48 @@
-#include "main.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "main.h"
 
 /**
- * _strlen - counts and returns string length
- * @s: the input string
- *
- * Return: the length
- */
-
-int _strlen(char *s)
-{
-	int c = 0;
-
-	for (c = 0; *s; c++)
-		s++;
-
-	return (c);
-}
-
-/**
- * string_nconcat - concatenates 2 strings
- * @s1: the first str
- * @s2: the second str
- * @n: how much of s2 to add
- *
- * Return: ptr to new string
+ * string_nconcat - main - entry
+ * @s1: take the characters in this memory
+ * @s2: concatenate this strings to the s1 variable
+ * @n: check for the legnth of the characters in s2
+ * Return: return the pointer to the standard output
  */
 
 char *string_nconcat(char *s1, char *s2, unsigned int n)
 {
-	char *nstr;
-	unsigned int idx, jdx, s1l, s2l;
+	unsigned int i, j;
+	char *ptr;
 
 	if (s1 == NULL)
 		s1 = "";
+
 	if (s2 == NULL)
 		s2 = "";
 
-	s1l = _strlen(s1);
-	s2l = _strlen(s2);
+	for (i = 0; s1[i] != '\0'; i++)
+		;
 
-	n = (n >= s2l) ? s2l : n;
+	for (j = 0; s2[j] != '\0'; j++)
+		;
 
-	nstr = malloc((s1l + n) * sizeof(char) + 1);
-	if (!nstr)
+	if (n > j)
+		n = j;
+	ptr = malloc(((i + n) + 1));
+	if (ptr == NULL)
 		return (NULL);
 
-	for (idx = 0; idx < s1l; idx++)
-		nstr[idx] = s1[idx];
+	for (i = 0; s1[i] != '\0'; i++)
+	{
+		ptr[i] = s1[i];
+	}
 
-	for (jdx = 0; jdx < n; jdx++, idx++)
-		nstr[idx] = s2[jdx];
-
-	nstr[idx] = '\0';
-	return (nstr);
+	for (j = 0; j != n; j++)
+	{
+		ptr[i] = s2[j];
+		i++;
+	}
+	ptr[i] = '\0';
+	return (ptr);
 }
